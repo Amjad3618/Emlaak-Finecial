@@ -1,11 +1,14 @@
 // main_intro_screen.dart
+import 'package:emlaak/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import '../Widgets/Auth_btns_row.dart';
-import '../Widgets/custom_register_btns.dart';
-import '../Widgets/invest_categories.dart';
-import '../Widgets/step_item.dart';
+import '../Widgets/intro/Auth_row_btns.dart';
+import '../Widgets/intro/custome_drawer.dart';
+import '../Widgets/intro/custome_register_btns.dart';
+import '../Widgets/intro/invest_categories.dart';
+import '../Widgets/intro/step_items.dart';
+
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -57,7 +60,7 @@ class _IntroScreenState extends State<IntroScreen> {
             child: Image.asset("assets/logo.png", fit: BoxFit.cover),
           ),
         ),
-        drawer: const Drawer(),
+        drawer: CustomeDrawer(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -81,7 +84,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Container(
                 height: 200,
                 width: double.infinity,
-                decoration: BoxDecoration(color: Colors.green),
+                decoration: BoxDecoration(color: AppColors.primaryColor),
                 child: Column(
                   children: [
                     Text(
@@ -131,9 +134,9 @@ class IntroSliderWidget extends StatelessWidget {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: [
-          _buildSlideItem("assets/intro img 1.png", Colors.green),
-          _buildSlideItem("assets/intro img 2.png", Colors.green),
-          _buildSlideItem("assets/intro img 3.png", Colors.greenAccent),
+          _buildSlideItem("assets/intro img 1.png", AppColors.primaryColor),
+          _buildSlideItem("assets/intro img 2.png", AppColors.primaryColor),
+          _buildSlideItem("assets/intro img 3.png", AppColors.primaryColor),
         ],
       ),
     );
@@ -154,7 +157,7 @@ class IntroSliderWidget extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.asset(imagePath, height: 190, fit: BoxFit.cover),
+        child: Image.asset(imagePath, height: 190, ),
       ),
     );
   }
@@ -208,7 +211,7 @@ class StepsWidget extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: AppColors.primaryColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(

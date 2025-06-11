@@ -1,6 +1,8 @@
+
+import 'package:emlaak/Utils/colors.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_register_btns.dart';
+import 'custome_register_btns.dart';
 
 class AuthButtonsWidget extends StatelessWidget {
   const AuthButtonsWidget({super.key});
@@ -15,7 +17,7 @@ class AuthButtonsWidget extends StatelessWidget {
           onPressed: () {
             // Handle sign in
           },
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.primaryColor,
         ),
         const SizedBox(width: 16),
         CustomElevatedButton(
