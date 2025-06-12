@@ -2,6 +2,7 @@
 import 'package:emlaak/Utils/colors.dart';
 import 'package:flutter/material.dart';
 
+import 'auth_btn_click_box.dart';
 import 'custome_register_btns.dart';
 
 class AuthButtonsWidget extends StatelessWidget {
@@ -15,7 +16,14 @@ class AuthButtonsWidget extends StatelessWidget {
         CustomElevatedButton(
           text: "Sign In",
           onPressed: () {
-            // Handle sign in
+            AuthDialogUtils.showSignInDialog(
+             context,
+             onSignIn: (email, password) {
+               print('Sign In: $email, $password');
+               Navigator.pop(context); // Close dialog
+               // Handle sign in logic
+             },
+           );
           },
           backgroundColor: AppColors.primaryColor,
         ),
@@ -23,8 +31,15 @@ class AuthButtonsWidget extends StatelessWidget {
         CustomElevatedButton(
           text: "Sign Up",
           onPressed: () {
-            // Handle sign up
-          },
+             AuthDialogUtils.showSignUpDialog(
+              context,
+              onSignUp: (name, email, password) {
+                print('Sign Up: $name, $email, $password');
+                Navigator.pop(context); // Close dialog
+                // Handle sign up logic
+              },
+            );
+           },
           backgroundColor: Colors.green[700]!,
         ),
       ],

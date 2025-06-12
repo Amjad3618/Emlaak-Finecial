@@ -1,14 +1,19 @@
 // main_intro_screen.dart
 import 'package:emlaak/Utils/colors.dart';
+import 'package:emlaak/Utils/custome_text.dart';
+import 'package:emlaak/Widgets/intro/about_emlaak_section.dart';
+import 'package:emlaak/Widgets/intro/bank_grid.dart';
+import 'package:emlaak/Widgets/intro/project_by_section.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import '../Widgets/intro/Auth_row_btns.dart';
 import '../Widgets/intro/custome_drawer.dart';
 import '../Widgets/intro/custome_register_btns.dart';
-import '../Widgets/intro/invest_categories.dart';
-import '../Widgets/intro/step_items.dart';
-
+import '../Widgets/intro/expand_tile.dart';
+import '../Widgets/intro/intro_help_section.dart';
+import '../Widgets/intro/invetment_categories.dart';
+import '../Widgets/intro/step_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -88,7 +93,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 child: Column(
                   children: [
                     Text(
-                      "FINF THE PERFECT \n INVESTENT",
+                      "YOUR FUTUR \n NEED A  \n SOLID PLAN",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -101,6 +106,125 @@ class _IntroScreenState extends State<IntroScreen> {
                       text: "GET STARTED",
                       onPressed: () {},
                       backgroundColor: Colors.green,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.green[100],
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "BENEFITS OF",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "EMLAAK \n FINACIAL",
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    SizedBox(height: 10),
+                    CustomExpandableTile(
+                      imagePath: "assets/troly.png",
+                      title: "One-Stop Shop",
+                      description:
+                          "A complete array of mutual funds made available on a single platform",
+                    ),
+                    SizedBox(height: 10),
+                    CustomExpandableTile(
+                      imagePath: "assets/search.png",
+                      title: "Transparency",
+                      description:
+                          "Online tools and expert research to pick the best-suited fund",
+                    ),
+                    SizedBox(height: 10),
+                    CustomExpandableTile(
+                      imagePath: "assets/book mark.png",
+                      title: "Online Investment",
+                      description: "Quick and hassle-free online investment",
+                    ),
+                    SizedBox(height: 10),
+                    CustomExpandableTile(
+                      imagePath: "assets/portfolio.png",
+                      title: "Portfolio Tracking & Reporting",
+                      description:
+                          "Ongoing Monitoring and evaluation of the entire portfolio in one place ",
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              BankGridWidget(
+                imagePaths: [
+                  "assets/banks/786.png",
+                  "assets/banks/akd.png",
+                  "assets/banks/alfalah.png",
+                  "assets/banks/alhabib.png",
+                  "assets/banks/allied.png",
+                  "assets/banks/askari.png",
+                  "assets/banks/atlas.png",
+                  "assets/banks/awt.png",
+                  "assets/banks/bma.png",
+                  "assets/banks/fbl.png",
+                  "assets/banks/js.png",
+                  "assets/banks/lakson.png",
+                  "assets/banks/lakson.png",
+                  "assets/banks/mcbah.png",
+                  "assets/banks/meezan.png",
+                  "assets/banks/nift.png",
+                  "assets/banks/nit.png",
+                  "assets/banks/pakoman.png",
+                  "assets/banks/ubl.png",
+                ],
+                onTap: (path) {
+                  // your logic here
+                  print("Tapped: $path");
+                },
+              ),
+              SizedBox(height: 15),
+              IntroHelpSection(),
+              SizedBox(height: 15),
+              AboutEmlaakSection(),
+              SizedBox(height: 15),
+              ProjectBySection(),
+              SizedBox(height: 15),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(color: Colors.green[50]),
+                child: Column(
+                  children: [
+                    CustomText(
+                      "Stay Connected",
+                      fontSize: 30,
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    CustomExpandableTile(
+                      imagePath: "assets/projects/contact.png",
+                      title: "Contact",
+                      description:
+                          "Call Center: 0800 - 23275O verseas Callers: + (9221) 34326038 WA: 03489-365225 (03489-Emlaak)info@emlaakfinancials.com ",
+                    ),
+                    CustomExpandableTile(
+                      imagePath: "assets/projects/location.png",
+                      title: "Locate Us",
+                      description:
+                          "CDC House, 99-B, Block 'B', S.M.C.H.S, Main Shahra-e-Faisal, Karachi-74400",
                     ),
                   ],
                 ),
@@ -157,7 +281,7 @@ class IntroSliderWidget extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.asset(imagePath, height: 190, ),
+        child: Image.asset(imagePath, height: 190),
       ),
     );
   }
@@ -195,121 +319,3 @@ class PageIndicatorWidget extends StatelessWidget {
     );
   }
 }
-
-// auth_buttons_widget.dart
-
-// custom_elevated_button.dart
-
-// steps_widget.dart
-class StepsWidget extends StatelessWidget {
-  const StepsWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 180,
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.green.withOpacity(0.3),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            StepItem(
-              imagePath: "assets/step1.png",
-              title: "Create Account",
-              fallbackIcon: Icons.looks_one,
-            ),
-            StepItem(
-              imagePath: "assets/step2.png",
-              title: "Pick Mutual Fund",
-              fallbackIcon: Icons.looks_two,
-            ),
-            StepItem(
-              imagePath: "assets/step3.png",
-              title: "Invest Online",
-              fallbackIcon: Icons.looks_3,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// step_item.dart
-
-// investment_categories_widget.dart
-class InvestmentCategoriesWidget extends StatelessWidget {
-  const InvestmentCategoriesWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(color: Colors.green[100]),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Text(
-            "FINF THE PERFECT \n INVESTENT",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Row(
-            children: [
-              InvestmentCategoryItem(
-                imagePath: "assets/investment4.png",
-                title: "Long-term Savings",
-
-                fallbackIcon: Icons.savings,
-              ),
-              const SizedBox(width: 20),
-              InvestmentCategoryItem(
-                imagePath: "assets/investment3.png",
-                title: "Children's Savings",
-
-                fallbackIcon: Icons.child_care,
-              ),
-            ],
-          ),
-          const SizedBox(height: 40),
-          Row(
-            children: [
-              InvestmentCategoryItem(
-                imagePath: "assets/investment1.png",
-                title: "Retirement Planning",
-
-                fallbackIcon: Icons.elderly,
-              ),
-              const SizedBox(width: 20),
-              InvestmentCategoryItem(
-                imagePath: "assets/investment2.png",
-                title: "Emergency Funds",
-
-                fallbackIcon: Icons.emergency,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// investment_category_item.dart

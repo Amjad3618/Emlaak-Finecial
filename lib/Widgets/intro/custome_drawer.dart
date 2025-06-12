@@ -17,11 +17,11 @@ class _CustomeDrawerState extends State<CustomeDrawer> {
         children: [
           SizedBox(height: 30),
           ListTile(
-            leading: const Icon(Icons.home, color: Colors.green),
+            leading: const Icon(Icons.person_pin, color: Colors.green),
             trailing: Icon(Icons.arrow_forward_ios, color: Colors.black),
 
             title: const Text(
-              'Home',
+              'About Us',
               style: TextStyle(
                 color: AppColors.primaryColor,
                 fontSize: 20,
@@ -34,11 +34,11 @@ class _CustomeDrawerState extends State<CustomeDrawer> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.foundation_outlined, color: Colors.green),
+            leading: const Icon(Icons.question_answer, color: Colors.green),
             trailing: Icon(Icons.arrow_forward_ios, color: Colors.black),
 
             title: const Text(
-              'Fund Comparison',
+              "FAQ'S",
               style: TextStyle(
                 color: AppColors.primaryColor,
                 fontSize: 20,
@@ -50,56 +50,7 @@ class _CustomeDrawerState extends State<CustomeDrawer> {
               // Navigate to home screen
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.transform, color: Colors.green),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.black),
-
-            title: const Text(
-              'My Transactions',
-              style: TextStyle(
-                color: AppColors.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // Navigate to home screen
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings, color: Colors.green),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.black),
-            title: const Text(
-              'Settings',
-              style: TextStyle(
-                color: AppColors.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // Navigate to home screen
-            },
-          ),
-          Padding(padding: EdgeInsets.all(20), child: Divider()),
-          ListTile(
-            leading: const Icon(Icons.logout, color: Colors.green),
-            trailing: Icon(Icons.arrow_back_ios, color: Colors.black),
-            title: const Text(
-              'Logout',
-              style: TextStyle(
-                color: AppColors.errorColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // Navigate to home screen
-            },
-          ),
+          
         ],
       ),
     );
