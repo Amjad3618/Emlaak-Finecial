@@ -1,5 +1,6 @@
 
 import 'package:emlaak/Utils/colors.dart';
+import 'package:emlaak/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'auth_btn_click_box.dart';
@@ -20,8 +21,7 @@ class AuthButtonsWidget extends StatelessWidget {
              context,
              onSignIn: (email, password) {
                print('Sign In: $email, $password');
-               Navigator.pop(context); // Close dialog
-               // Handle sign in logic
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
              },
            );
           },

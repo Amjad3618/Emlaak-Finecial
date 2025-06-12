@@ -1,3 +1,4 @@
+import 'package:emlaak/screens/home_screen.dart';
 import 'package:emlaak/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Emlaak Finacial',
-      theme: ThemeData(
-        
-       
-      ),
-      home: IntroScreen()
+      
+      home: HomeScreen()
     );
   }
 }
