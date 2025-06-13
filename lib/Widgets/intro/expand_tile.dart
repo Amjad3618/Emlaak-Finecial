@@ -15,15 +15,9 @@ class CustomExpandableTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      leading: CircleAvatar(
-        backgroundImage: AssetImage(imagePath),
-      ),
-      title: Text(title),
-      children: [
-        ListTile(
-          title: Text(description),
-        ),
-      ],
+      leading: CircleAvatar(backgroundImage: AssetImage(imagePath)),
+      title: Text(title, style: TextStyle(fontSize: 20)),
+      children: [ListTile(title: Text(description))],
     );
   }
 }

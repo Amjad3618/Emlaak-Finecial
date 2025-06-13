@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Emlaak Finacial',
       
-      home: HomeScreen()
+      home: IntroScreen()
     );
   }
 }
