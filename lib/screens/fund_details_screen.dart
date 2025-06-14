@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Utils/custome_text.dart';
 import '../Widgets/CustomeDailog/custome_dailog.dart';
 import '../Widgets/funds_screen/fund_info_colum.dart';
+import 'account_creation_screen.dart';
 
 class FundDetailsScreen extends StatefulWidget {
   const FundDetailsScreen({super.key});
@@ -246,6 +247,25 @@ class _FundDetailsScreenState extends State<FundDetailsScreen> {
                               secondaryTextColor: Colors.black87,
                               onPrimaryPressed: () {
                                 Navigator.of(context).pop();
+                                 showCustomDialog(
+                              context: context,
+                              title: '',
+                              content:
+                                  'Have you invested previously with ABL Asset Management Company Limited',
+                              titleColor: Colors.black,
+                              primaryButtonText: 'Yes',
+                              secondaryButtonText: 'Not',
+                              primaryButtonColor: Colors.green,
+                              secondaryButtonColor: Colors.grey.shade300,
+                              secondaryTextColor: Colors.black87,
+                              onPrimaryPressed: () {},
+                              onSecondaryPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => AccountCreationScreen(),
+                                ));
+                              },
+                            );
                               },
                             );
                           },
