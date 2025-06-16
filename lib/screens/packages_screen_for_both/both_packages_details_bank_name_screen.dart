@@ -2,19 +2,19 @@ import 'package:emlaak/Utils/colors.dart';
 import 'package:emlaak/Widgets/intro/custome_register_btns.dart';
 import 'package:flutter/material.dart';
 
-import '../Utils/custome_text.dart';
-import '../Widgets/CustomeDailog/custome_dailog.dart';
-import '../Widgets/funds_screen/fund_info_colum.dart';
-import 'account_creation_screen.dart';
+import '../../Utils/custome_text.dart';
+import '../../Widgets/CustomeDailog/custome_dailog.dart';
+import '../../Widgets/funds_screen/fund_info_colum.dart';
+import 'sahulat_and_sarmayakari_pgs_screen.dart.dart';
 
-class FundDetailsScreen extends StatefulWidget {
-  const FundDetailsScreen({super.key});
+class BothPackagesDetailsBankNamesScreen extends StatefulWidget {
+  const BothPackagesDetailsBankNamesScreen({super.key});
 
   @override
-  State<FundDetailsScreen> createState() => _FundDetailsScreenState();
+  State<BothPackagesDetailsBankNamesScreen> createState() => _BothPackagesDetailsBankNamesScreenState();
 }
 
-class _FundDetailsScreenState extends State<FundDetailsScreen> {
+class _BothPackagesDetailsBankNamesScreenState extends State<BothPackagesDetailsBankNamesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,7 +262,7 @@ class _FundDetailsScreenState extends State<FundDetailsScreen> {
                               onSecondaryPressed: () {
                                 Navigator.of(context).pop();
                                 Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => AccountCreationScreen(),
+                                  builder: (context) => SahulatAnadSarmayakariPackagesScreen(),
                                 ));
                               },
                             );

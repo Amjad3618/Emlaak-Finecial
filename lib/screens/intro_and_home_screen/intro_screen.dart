@@ -7,13 +7,13 @@ import 'package:emlaak/Widgets/intro/project_by_section.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import '../Widgets/intro/Auth_row_btns.dart';
-import '../Widgets/intro/custome_drawer.dart';
-import '../Widgets/intro/custome_register_btns.dart';
-import '../Widgets/intro/expand_tile.dart';
-import '../Widgets/intro/intro_help_section.dart';
-import '../Widgets/intro/invetment_categories.dart';
-import '../Widgets/intro/step_widget.dart';
+import '../../Widgets/intro/Auth_row_btns.dart';
+import '../../Widgets/intro/custome_drawer.dart';
+import '../../Widgets/intro/custome_register_btns.dart';
+import '../../Widgets/intro/expand_tile.dart';
+import '../../Widgets/intro/intro_help_section.dart';
+import '../../Widgets/intro/invetment_categories.dart';
+import '../../Widgets/intro/step_widget.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});

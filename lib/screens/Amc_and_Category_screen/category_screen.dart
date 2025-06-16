@@ -1,11 +1,11 @@
-import 'package:emlaak/screens/fund_details_screen.dart';
+import 'package:emlaak/screens/packages_screen_for_both/both_packages_details_bank_name_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../Utils/custome_text.dart';
-import '../Widgets/home/category_cart.dart';
-import '../Widgets/intro/expand_tile.dart';
+import '../../Utils/custome_text.dart';
+import '../../Widgets/home/category_cart.dart';
+import '../../Widgets/intro/expand_tile.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -35,7 +35,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               onTap: () {
                 // Your onTap function here
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => FundDetailsScreen(),
+                  builder: (context) => BothPackagesDetailsBankNamesScreen(),
                 ));
               },
             ),

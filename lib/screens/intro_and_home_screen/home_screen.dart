@@ -1,7 +1,7 @@
 import 'package:emlaak/Utils/colors.dart';
 import 'package:emlaak/Widgets/home/home_drawer.dart';
-import 'package:emlaak/screens/amc_screen.dart';
-import 'package:emlaak/screens/category_screen.dart';
+import 'package:emlaak/screens/Amc_and_Category_screen/amc_screen.dart';
+import 'package:emlaak/screens/Amc_and_Category_screen/category_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

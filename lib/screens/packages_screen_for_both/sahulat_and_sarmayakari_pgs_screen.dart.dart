@@ -1,17 +1,19 @@
 import 'package:emlaak/Utils/custome_text.dart';
+import 'package:emlaak/screens/SramayaKariScreens/sarmayakari_acc_details_collection_sceen.dart';
 import 'package:flutter/material.dart';
 
-import '../Widgets/intro/expand_tile.dart';
-import 'sahulat_sarmayakari_acc_screen.dart';
+import '../../Widgets/CustomeDailog/custome_dailog.dart';
+import '../../Widgets/intro/expand_tile.dart';
+import '../Sahulat_Sramayakari_screen/sahulat_sarmayakari_acc_screen.dart';
 
-class AccountCreationScreen extends StatefulWidget {
-  const AccountCreationScreen({super.key});
+class SahulatAnadSarmayakariPackagesScreen extends StatefulWidget {
+  const SahulatAnadSarmayakariPackagesScreen({super.key});
 
   @override
-  State<AccountCreationScreen> createState() => _AccountCreationScreenState();
+  State<SahulatAnadSarmayakariPackagesScreen> createState() => _SahulatAnadSarmayakariPackagesScreenState();
 }
 
-class _AccountCreationScreenState extends State<AccountCreationScreen> {
+class _SahulatAnadSarmayakariPackagesScreenState extends State<SahulatAnadSarmayakariPackagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,9 +182,14 @@ class _AccountCreationScreenState extends State<AccountCreationScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 // Handle button press
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => const SahulatSarmayakariAccScreen(),
-                                ));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) =>
+                                            const SahulatSarmayakariAccScreen(),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
@@ -314,7 +321,28 @@ class _AccountCreationScreenState extends State<AccountCreationScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                // Handle button press
+                                showCustomDialog(
+                                  context: context,
+                                  title: '',
+                                  content:
+                                      'Currently resident Pakistani can Only Invest in this account.',
+                                  titleColor: Colors.black,
+                                  primaryButtonText: 'Next',
+                                  secondaryButtonText: 'Cancel',
+                                  primaryButtonColor: Colors.green,
+                                  secondaryButtonColor: Colors.grey.shade300,
+                                  secondaryTextColor: Colors.black87,
+                                  onPrimaryPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) =>
+                                                const SarmayakariAccDetailsCollectionScreen(),
+                                      ),
+                                    );
+                                  },
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4CAF50),
@@ -346,17 +374,16 @@ class _AccountCreationScreenState extends State<AccountCreationScreen> {
                         ],
                       ),
                     ),
-                    
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 20),
               CustomExpandableTile(
-              imagePath: "assets/projects/contact.png",
-              title: "Contact",
-              description:
-                  "Call Center: 0800 - 23275O verseas Callers: + (9221) 34326038 WA: 03489-365225 (03489-Emlaak)info@emlaakfinancials.com ",
-            ),
+                imagePath: "assets/projects/contact.png",
+                title: "Contact",
+                description:
+                    "Call Center: 0800 - 23275O verseas Callers: + (9221) 34326038 WA: 03489-365225 (03489-Emlaak)info@emlaakfinancials.com ",
+              ),
             ],
           ),
         ),

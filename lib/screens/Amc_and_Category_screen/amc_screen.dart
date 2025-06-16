@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../Utils/custome_text.dart';
-import '../Widgets/home/category_cart.dart';
-import '../Widgets/intro/expand_tile.dart';
+import '../../Utils/custome_text.dart';
+import '../../Widgets/home/category_cart.dart';
+import '../../Widgets/intro/expand_tile.dart';
 
 class AmcScreen extends StatefulWidget {
   const AmcScreen({super.key});

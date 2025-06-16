@@ -1,10 +1,9 @@
-import 'package:emlaak/Utils/colors.dart';
 import 'package:emlaak/Utils/custome_text.dart';
-import 'package:emlaak/Widgets/Elevtaed_btn/custome_elevtaed_btn.dart';
+import 'package:emlaak/Widgets/AppBar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../Widgets/form_and_date_picker/form_and_date_picker.dart';
+import '../../Widgets/form_and_date_picker/form_and_date_picker.dart';
 
 // Import your custom widgets here
 // import 'custom_textformfield.dart';
@@ -25,6 +24,8 @@ class _SahulatSarmayakariAccScreenState extends State<SahulatSarmayakariAccScree
   final _motherNameController = TextEditingController();
   final _employerNameController = TextEditingController();
   final _monthlyIncomeController = TextEditingController();
+    final _investmentAmountController = TextEditingController();
+
   final _nextOfKinNameController = TextEditingController();
   final _nextOfKinCnicController = TextEditingController();
   final _nextOfKinContactController = TextEditingController();
@@ -59,21 +60,7 @@ class _SahulatSarmayakariAccScreenState extends State<SahulatSarmayakariAccScree
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
-        ),
-        title: SizedBox(
-          height: 40,
-          child: Image.asset("assets/logo.png", fit: BoxFit.contain),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
@@ -357,6 +344,17 @@ class _SahulatSarmayakariAccScreenState extends State<SahulatSarmayakariAccScree
           prefixIcon: const Icon(Icons.attach_money, color: Colors.grey),
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           validator: (value) => value?.isEmpty ?? true ? 'Please enter monthly income' : null,
+        ),
+          const SizedBox(height: 16),
+        CustomTextFormField(
+          labelText: "Investment Amount",
+          hintText: "Enter Investment amount",
+          controller: _investmentAmountController,
+          isRequired: true,
+          keyboardType: TextInputType.number,
+          prefixIcon: const Icon(Icons.attach_money, color: Colors.grey),
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          validator: (value) => value?.isEmpty ?? true ? 'Please enter your investment  ammount' : null,
         ),
         const SizedBox(height: 16),
         CustomDropdownFormField<String>(
