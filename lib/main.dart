@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Emlaak Finacial',
       
-      home: SarmayakariAccCreationphoneNumberScreen()
+      home: IntroScreen()
     );
   }
 }
