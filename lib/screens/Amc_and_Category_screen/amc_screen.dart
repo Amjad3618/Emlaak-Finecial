@@ -1,3 +1,4 @@
+import 'package:emlaak/screens/Amc_and_Category_screen/amc_packages_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,8 +20,7 @@ class _AmcScreenState extends State<AmcScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
+        child: Column(
           children: [
             CustomText(
               "Ready to Invest Funds",
@@ -28,168 +28,72 @@ class _AmcScreenState extends State<AmcScreen> {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 20),
-            CategoryCard(
-              title: "ABL Asset Management Comapny Limmited",
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return CategoryCard(
+                    title: "ABL Asset Management Comapny Limmited",
 
-              onTap: () {
-                // Your onTap function here
-              },
+                    onTap: () {
+                      // Your onTap function here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AmcPackagesScreen(),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-            CategoryCard(
-              title: "AKD Investment Management Limited",
 
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "AL Habib Asset Management Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Al Meezan Management Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Alfalah GHP Investment Management Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Atlas Asset Management Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title:
-                  "AWT Investments Limited 'Formerly Primus Investement Management  Limited'",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Faysal Asset Management Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "HBL Asset Management Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "JS Investments Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Lakson Investments Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "MCB Arif Habib Saving and Investment Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "National Investment Trust Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title:
-                  "NBP Full Management Limited  'Formerly NBP Fullerton Asset Management Limited'",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Pak Oman Assets Management Company Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "Pak-Qatar Asset Management Companay Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
-            CategoryCard(
-              title: "UBL Fund Managers Limited",
-
-              onTap: () {
-                // Your onTap function here
-              },
-            ),
             SizedBox(height: 20),
             CustomText(
               "Sicial Links",
-              fontSize: 30,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CupertinoButton(
-                  onPressed: () {
-                    // Facebook action
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.facebook,
-                    color: Colors.blue,
-                    size: 40,
+            SizedBox(
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CupertinoButton(
+                    onPressed: () {
+                      // Facebook action
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.facebook,
+                      color: Colors.blue,
+                      size: 30,
+                    ),
                   ),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    // Instagram action
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.instagram,
-                    color: Colors.purple,
-                    size: 40,
+                  CupertinoButton(
+                    onPressed: () {
+                      // Instagram action
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.instagram,
+                      color: Colors.purple,
+                      size: 30,
+                    ),
                   ),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    // LinkedIn action
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.linkedin,
-                    color: Colors.blue[700],
-                    size: 40,
+                  CupertinoButton(
+                    onPressed: () {
+                      // LinkedIn action
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.linkedin,
+                      color: Colors.blue[700],
+                      size: 30,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
+            SizedBox(height: 10),
+
             CustomExpandableTile(
               imagePath: "assets/projects/contact.png",
               title: "Contact",

@@ -1,7 +1,10 @@
 import 'package:emlaak/Utils/colors.dart';
+import 'package:emlaak/Utils/custome_text.dart';
 import 'package:emlaak/Widgets/AppBar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../Widgets/form_and_date_picker/form_and_date_picker.dart';
 
 // Import your custom widgets here
 // import 'path/to/your/custom_form_widgets.dart';
@@ -21,6 +24,11 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _cnicController = TextEditingController();
   final TextEditingController _motherMaidenNameController = TextEditingController();
+  final TextEditingController _emergencyperonnameController =TextEditingController();
+    final TextEditingController _emergencyperonContactNumberController =TextEditingController();
+      final TextEditingController __emergencyPersoncnicController = TextEditingController();
+
+
   final TextEditingController _noDependentsController = TextEditingController();
   final TextEditingController _landlineController = TextEditingController();
   final TextEditingController _mailingAddressController = TextEditingController();
@@ -71,7 +79,7 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
       // Handle form submission
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Profile created successfully!'),
+          content: Text(' Sarmayakri Account created successfully!'),
           backgroundColor: Colors.green,
         ),
       );
@@ -103,7 +111,8 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                 child: Column(
                   children: [
                     Text(
-                      'Create Your Profile',
+                      textAlign: TextAlign.center,
+                      'Create Your Sarmayakari Account',
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey.shade800,
@@ -182,7 +191,7 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          child: const Text('Previous'),
+                          child: const CustomText("Previous")
                         ),
                       ),
                     if (_currentPage > 0) const SizedBox(width: 16),
@@ -321,6 +330,59 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                   return null;
                 },
               ),
+                const SizedBox(height: 20),
+              
+              CustomTextFormField(
+                labelText: 'Emergency Person Name',
+                hintText: 'Emergency Person Name',
+                controller: _emergencyperonnameController,
+                isRequired: true,
+                textCapitalization: TextCapitalization.words,
+                prefixIcon: const Icon(Icons.woman),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter mother\'s maiden name';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20,),
+               CustomTextFormField(
+                labelText: 'Emergenvy Peron Cotact Number',
+                hintText: 'Enter Emergenvy Peron Cotact Number',
+                controller: _emergencyperonContactNumberController,
+                isRequired: true,
+                keyboardType: TextInputType.number,
+                prefixIcon: const Icon(Icons.family_restroom),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter number of dependents';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              
+              CustomTextFormField(
+                labelText: 'Emergency Person CNIC',
+                hintText: '12345-1234567-1',
+                controller: __emergencyPersoncnicController,
+                isRequired: true,
+                keyboardType: TextInputType.number,
+                prefixIcon: const Icon(Icons.credit_card),
+                inputFormatters: [CNICFormatter()],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter Emerrgency  CNIC';
+                  }
+                  if (value.replaceAll('-', '').length != 13) {
+                    return 'CNIC must be 13 digits';
+                  }
+                  return null;
+                },
+              ),
+              
             ],
           ),
         ],
@@ -380,10 +442,10 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                 isRequired: true,
                 value: _selectedMaritalStatus,
                 items: const [
-                  DropdownMenuItem(value: 'Single', child: Text('Single')),
-                  DropdownMenuItem(value: 'Married', child: Text('Married')),
-                  DropdownMenuItem(value: 'Divorced', child: Text('Divorced')),
-                  DropdownMenuItem(value: 'Widowed', child: Text('Widowed')),
+                  DropdownMenuItem(value: 'Single', child: CustomText('Single')),
+                  DropdownMenuItem(value: 'Married', child: CustomText('Married')),
+                  DropdownMenuItem(value: 'Divorced', child: CustomText('Divorced')),
+                  DropdownMenuItem(value: 'Widowed', child: CustomText('Widowed')),
                 ],
                 onChanged: (value) {
                   setState(() {
@@ -440,13 +502,13 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                 isRequired: true,
                 value: _selectedOccupation,
                 items: const [
-                  DropdownMenuItem(value: 'Employee', child: Text('Employee')),
-                  DropdownMenuItem(value: 'Business Owner', child: Text('Business Owner')),
-                  DropdownMenuItem(value: 'Self Employed', child: Text('Self Employed')),
-                  DropdownMenuItem(value: 'Student', child: Text('Student')),
-                  DropdownMenuItem(value: 'Retired', child: Text('Retired')),
-                  DropdownMenuItem(value: 'Housewife', child: Text('Housewife')),
-                  DropdownMenuItem(value: 'Other', child: Text('Other')),
+                  DropdownMenuItem(value: 'Employee', child: CustomText('Employee')),
+                  DropdownMenuItem(value: 'Business Owner', child: CustomText('Business Owner')),
+                  DropdownMenuItem(value: 'Self Employed', child: CustomText('Self Employed')),
+                  DropdownMenuItem(value: 'Student', child: CustomText('Student')),
+                  DropdownMenuItem(value: 'Retired', child: CustomText('Retired')),
+                  DropdownMenuItem(value: 'Housewife', child: CustomText('Housewife')),
+                  DropdownMenuItem(value: 'Other', child: CustomText('Other')),
                 ],
                 onChanged: (value) {
                   setState(() {
@@ -469,12 +531,12 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                 isRequired: true,
                 value: _selectedEducation,
                 items: const [
-                  DropdownMenuItem(value: 'Matriculation', child: Text('Matriculation')),
-                  DropdownMenuItem(value: 'Intermediate', child: Text('Intermediate')),
-                  DropdownMenuItem(value: 'Bachelor\'s Degree', child: Text('Bachelor\'s Degree')),
-                  DropdownMenuItem(value: 'Master\'s Degree', child: Text('Master\'s Degree')),
-                  DropdownMenuItem(value: 'PhD', child: Text('PhD')),
-                  DropdownMenuItem(value: 'Other', child: Text('Other')),
+                  DropdownMenuItem(value: 'Matriculation', child: CustomText('Matriculation')),
+                  DropdownMenuItem(value: 'Intermediate', child: CustomText('Intermediate')),
+                  DropdownMenuItem(value: 'Bachelor\'s Degree', child: CustomText('Bachelor\'s Degree')),
+                  DropdownMenuItem(value: 'Master\'s Degree', child: CustomText('Master\'s Degree')),
+                  DropdownMenuItem(value: 'PhD', child: CustomText('PhD')),
+                  DropdownMenuItem(value: 'Other', child: CustomText('Other')),
                 ],
                 onChanged: (value) {
                   setState(() {
@@ -508,25 +570,25 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                   children: [
                     Icon(Icons.info_outline, color: Colors.blue.shade600),
                     const SizedBox(width: 8),
-                    Text(
+                    CustomText(
                       'Review Your Information',
-                      style: TextStyle(
+                      
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: Colors.blue.shade800,
                       ),
-                    ),
+                    
                   ],
                 ),
                 const SizedBox(height: 12),
-                Text(
+                CustomText(
                   'Please review all the information you\'ve entered before submitting. Make sure all details are correct as this will be used for your profile verification.',
-                  style: TextStyle(
+                  
                     color: Colors.blue.shade700,
                     fontSize: 14,
                     height: 1.4,
                   ),
-                ),
+                
               ],
             ),
           ),
@@ -589,345 +651,7 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
   }
 }
 
-// Copy your custom form widgets here or import them
-class CNICFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
-    
-    if (text.length <= 5) {
-      return newValue.copyWith(text: text);
-    } else if (text.length <= 12) {
-      return newValue.copyWith(
-        text: '${text.substring(0, 5)}-${text.substring(5)}',
-        selection: TextSelection.collapsed(offset: text.length + 1),
-      );
-    } else if (text.length <= 13) {
-      return newValue.copyWith(
-        text: '${text.substring(0, 5)}-${text.substring(5, 12)}-${text.substring(12)}',
-        selection: TextSelection.collapsed(offset: text.length + 2),
-      );
-    }
-    
-    return oldValue;
-  }
-}
 
-class PhoneFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    final text = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
-    
-    if (text.length <= 4) {
-      return newValue.copyWith(text: text);
-    } else if (text.length <= 11) {
-      return newValue.copyWith(
-        text: '${text.substring(0, 4)}-${text.substring(4)}',
-        selection: TextSelection.collapsed(offset: text.length + 1),
-      );
-    }
-    
-    return oldValue;
-  }
-}
 
-class CustomTextFormField extends StatelessWidget {
-  final String labelText;
-  final String? hintText;
-  final TextEditingController? controller;
-  final bool isRequired;
-  final TextInputType? keyboardType;
-  final Widget? prefixIcon;
-  final List<TextInputFormatter>? inputFormatters;
-  final String? Function(String?)? validator;
-  final int maxLines;
-  final TextCapitalization textCapitalization;
 
-  const CustomTextFormField({
-    super.key,
-    required this.labelText,
-    this.hintText,
-    this.controller,
-    this.isRequired = false,
-    this.keyboardType,
-    this.prefixIcon,
-    this.inputFormatters,
-    this.validator,
-    this.maxLines = 1,
-    this.textCapitalization = TextCapitalization.none,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: labelText,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-            children: isRequired
-                ? [
-                    const TextSpan(
-                      text: ' *',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ]
-                : [],
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          inputFormatters: inputFormatters,
-          validator: validator,
-          maxLines: maxLines,
-          textCapitalization: textCapitalization,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey[400]),
-            prefixIcon: prefixIcon,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey[300]!),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey[300]!),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.green, width: 2),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red, width: 2),
-            ),
-            filled: true,
-            fillColor: Colors.grey[50],
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CustomDropdownFormField<T> extends StatelessWidget {
-  final String labelText;
-  final String? hintText;
-  final T? value;
-  final bool isRequired;
-  final List<DropdownMenuItem<T>> items;
-  final void Function(T?)? onChanged;
-  final String? Function(T?)? validator;
-
-  const CustomDropdownFormField({
-    super.key,
-    required this.labelText,
-    this.hintText,
-    this.value,
-    this.isRequired = false,
-    required this.items,
-    this.onChanged,
-    this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: labelText,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-            children: isRequired
-                ? [
-                    const TextSpan(
-                      text: ' *',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ]
-                : [],
-          ),
-        ),
-        const SizedBox(height: 8),
-        DropdownButtonFormField<T>(
-          value: value,
-          items: items,
-          onChanged: onChanged,
-          validator: validator,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey[400]),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey[300]!),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey[300]!),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.green, width: 2),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red, width: 2),
-            ),
-            filled: true,
-            fillColor: Colors.grey[50],
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CustomDatePickerField extends StatelessWidget {
-  final String labelText;
-  final String? hintText;
-  final DateTime? selectedDate;
-  final bool isRequired;
-  final void Function(DateTime?) onDateSelected;
-  final String? Function(DateTime?)? validator;
-
-  const CustomDatePickerField({
-    super.key,
-    required this.labelText,
-    this.hintText,
-    this.selectedDate,
-    this.isRequired = false,
-    required this.onDateSelected,
-    this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: labelText,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-            children: isRequired
-                ? [
-                    const TextSpan(
-                      text: ' *',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ]
-                : [],
-          ),
-        ),
-        const SizedBox(height: 8),
-        FormField<DateTime>(
-          initialValue: selectedDate,
-          validator: validator,
-          builder: (FormFieldState<DateTime> state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () async {
-                    final DateTime? picked = await showDatePicker(
-                      context: context,
-                      initialDate: selectedDate ?? DateTime.now(),
-                      firstDate: DateTime(1950),
-                      lastDate: DateTime.now(),
-                      builder: (context, child) {
-                        return Theme(
-                          data: Theme.of(context).copyWith(
-                            colorScheme: const ColorScheme.light(
-                              primary: Colors.green,
-                              onPrimary: Colors.white,
-                              surface: Colors.white,
-                              onSurface: Colors.black,
-                            ),
-                          ),
-                          child: child!,
-                        );
-                      },
-                    );
-                    if (picked != null) {
-                      onDateSelected(picked);
-                      state.didChange(picked);
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: state.hasError ? Colors.red : Colors.grey[300]!,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.grey[50],
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.calendar_today, color: Colors.grey, size: 20),
-                        const SizedBox(width: 12),
-                        Text(
-                          selectedDate != null
-                              ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
-                              : hintText ?? 'Select date',
-                          style: TextStyle(
-                            color: selectedDate != null ? Colors.black87 : Colors.grey[400],
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                if (state.hasError)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 12),
-                    child: Text(
-                      state.errorText!,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-              ],
-            );
-          },
-        ),
-      ],
-    );
-  }
-}

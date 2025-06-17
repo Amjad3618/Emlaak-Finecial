@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../Utils/custome_text.dart';
 import '../../Widgets/CustomeDailog/custome_dailog.dart';
 import '../../Widgets/funds_screen/fund_info_colum.dart';
-import 'sahulat_and_sarmayakari_pgs_screen.dart.dart';
+import 'sahulat_and_sarmayakari_pkgs_screen.dart.dart';
 
 class BothPackagesDetailsBankNamesScreen extends StatefulWidget {
   const BothPackagesDetailsBankNamesScreen({super.key});

@@ -49,6 +49,7 @@ class PhoneFormatter extends TextInputFormatter {
   }
 }
 
+
 // Custom TextFormField Widget
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
@@ -63,7 +64,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextCapitalization textCapitalization;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.labelText,
     this.hintText,
     this.controller,
@@ -74,7 +75,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.maxLines = 1,
     this.textCapitalization = TextCapitalization.none,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +142,7 @@ class CustomTextFormField extends StatelessWidget {
   }
 }
 
+
 // Custom Dropdown Widget
 class CustomDropdownFormField<T> extends StatelessWidget {
   final String labelText;
@@ -152,7 +154,7 @@ class CustomDropdownFormField<T> extends StatelessWidget {
   final String? Function(T?)? validator;
 
   const CustomDropdownFormField({
-    Key? key,
+    super.key,
     required this.labelText,
     this.hintText,
     this.value,
@@ -160,7 +162,7 @@ class CustomDropdownFormField<T> extends StatelessWidget {
     required this.items,
     this.onChanged,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +226,9 @@ class CustomDropdownFormField<T> extends StatelessWidget {
   }
 }
 
+
 // Custom Date Picker Widget
+
 class CustomDatePickerField extends StatelessWidget {
   final String labelText;
   final String? hintText;
@@ -234,14 +238,14 @@ class CustomDatePickerField extends StatelessWidget {
   final String? Function(DateTime?)? validator;
 
   const CustomDatePickerField({
-    Key? key,
+    super.key,
     required this.labelText,
     this.hintText,
     this.selectedDate,
     this.isRequired = false,
     required this.onDateSelected,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
