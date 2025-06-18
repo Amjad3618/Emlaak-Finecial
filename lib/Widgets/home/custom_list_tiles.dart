@@ -1,11 +1,11 @@
 import 'package:emlaak/Utils/custome_text.dart';
 import 'package:flutter/material.dart';
 
-class CategoryCard extends StatelessWidget {
+class CustomLitTiles extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
 
-  const CategoryCard({
+  const CustomLitTiles({
     Key? key,
     required this.title,
     required this.onTap,

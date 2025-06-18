@@ -1,6 +1,6 @@
+import 'package:emlaak/screens/intro_and_tapbar_screen/intro_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'screens/Amc_and_Category_screen/amc_screen.dart';
 
 
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Emlaak Finacial',
       
-      home: AmcScreen()
+      home: IntroScreen()
     );
   }
 }

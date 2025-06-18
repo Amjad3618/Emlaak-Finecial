@@ -1,17 +1,37 @@
 import 'package:emlaak/Utils/colors.dart';
 import 'package:emlaak/Widgets/home/home_drawer.dart';
-import 'package:emlaak/screens/Amc_and_Category_screen/amc_screen.dart';
-import 'package:emlaak/screens/Amc_and_Category_screen/category_screen.dart';
+import 'package:emlaak/screens/Amc_and_Category_screen/AMC/amc_screen.dart';
+import 'package:emlaak/screens/Amc_and_Category_screen/category/category_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class TapBarScreen extends StatefulWidget {
+  const TapBarScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<TapBarScreen> createState() => _TapBarScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _TapBarScreenState extends State<TapBarScreen> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    );
+    _slideAnimation = Tween<double>(begin: 50.0, end: 0.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    _animationController.forward();
+  }
+
   int _selectedTabIndex = 0;
   final PageController _pageController = PageController();
 
@@ -41,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _pageController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -49,8 +70,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: _buildAppBar(),
       drawer: const HomeDrawer(),
-      body: Column(
-        children: [_buildTabBar(), Expanded(child: _buildPageView())],
+      body: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(0, _slideAnimation.value),
+            child: Opacity(
+              opacity: _fadeAnimation.value,
+              child: Column(
+                children: [_buildTabBar(), Expanded(child: _buildPageView())],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

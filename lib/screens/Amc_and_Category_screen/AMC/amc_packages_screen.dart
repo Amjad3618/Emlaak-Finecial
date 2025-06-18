@@ -3,6 +3,9 @@ import 'package:emlaak/Utils/custome_text.dart';
 import 'package:emlaak/Widgets/AppBar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Widgets/CustomeDailog/custome_dailog.dart';
+import '../../packages_screen_for_both/sahulat_and_sarmayakari_pkgs_screen.dart.dart';
+
 class AmcPackagesScreen extends StatefulWidget {
   const AmcPackagesScreen({super.key});
 
@@ -12,38 +15,109 @@ class AmcPackagesScreen extends StatefulWidget {
 
 class _AmcPackagesScreenState extends State<AmcPackagesScreen>
     with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _slideAnimation;
-  late Animation<double> _fadeAnimation;
+  late AnimationController _headerController;
+  late List<AnimationController> _cardControllers;
+  
+  late Animation<double> _headerFadeAnimation;
+  late List<Animation<double>> _cardFadeAnimations;
+  
+  late Animation<Offset> _headerSlideAnimation;
+  late List<Animation<Offset>> _cardSlideAnimations;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+    
+    // Initialize header animation controller
+    _headerController = AnimationController(
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
-    _slideAnimation = Tween<double>(
-      begin: 50.0,
-      end: 0.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeOutCubic,
-    ));
-    _fadeAnimation = Tween<double>(
+    
+    // Initialize card animation controllers (10 cards)
+    _cardControllers = List.generate(
+      10,
+      (index) => AnimationController(
+        duration: const Duration(milliseconds: 800),
+        vsync: this,
+      ),
+    );
+    
+    // Initialize header animations
+    _headerFadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
     ).animate(CurvedAnimation(
-      parent: _animationController,
+      parent: _headerController,
       curve: Curves.easeInOut,
     ));
-    _animationController.forward();
+    
+    _headerSlideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.5),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _headerController,
+      curve: Curves.easeOutBack,
+    ));
+    
+    // Initialize card animations
+    _cardFadeAnimations = _cardControllers.map((controller) {
+      return Tween<double>(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeInOut,
+      ));
+    }).toList();
+    
+    _cardSlideAnimations = _cardControllers.map((controller) {
+      return Tween<Offset>(
+        begin: const Offset(0, 0.5),
+        end: Offset.zero,
+      ).animate(CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeOutBack,
+      ));
+    }).toList();
+    
+    // Start animations with delays
+    _startAnimations();
+  }
+  
+  void _startAnimations() async {
+    // Start header animation
+    await Future.delayed(const Duration(milliseconds: 200));
+    _headerController.forward();
+    
+    // Start card animations with staggered delays
+    for (int i = 0; i < _cardControllers.length; i++) {
+      await Future.delayed(const Duration(milliseconds: 150));
+      _cardControllers[i].forward();
+    }
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _headerController.dispose();
+    for (var controller in _cardControllers) {
+      controller.dispose();
+    }
     super.dispose();
+  }
+
+  Widget _buildAnimatedCard({
+    required Animation<double> fadeAnimation,
+    required Animation<Offset> slideAnimation,
+    required Widget child,
+  }) {
+    return SlideTransition(
+      position: slideAnimation,
+      child: FadeTransition(
+        opacity: fadeAnimation,
+        child: child,
+      ),
+    );
   }
 
   @override
@@ -51,58 +125,64 @@ class _AmcPackagesScreenState extends State<AmcPackagesScreen>
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: CustomAppbar(),
-      body: AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) {
-          return Transform.translate(
-            offset: Offset(0, _slideAnimation.value),
-            child: Opacity(
-              opacity: _fadeAnimation.value,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(0),
-                itemCount: 12, // 1 for header + 1 for divider + 10 fund cards
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    // Header Section
-                    return Container(
-                      margin: const EdgeInsets.all(16),
-                      child: _buildHeaderSection(),
-                    );
-                  } else if (index == 1) {
-                    // Divider Section
-                    return Column(
-                      children: [
-                        Container(
-                          height: 2,
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.transparent,
-                                AppColors.primaryColor.withOpacity(0.5),
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                      ],
-                    );
-                  } else {
-                    // Fund Cards (index - 2 because we have header and divider before)
-                    return Container(
-                      margin: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        bottom: 20,
-                      ),
-                      child: _buildFundCard(index - 2),
-                    );
-                  }
-                },
+      body: ListView.builder(
+        padding: const EdgeInsets.all(0),
+        itemCount: 12, // 1 for header + 1 for divider + 10 fund cards
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            // Animated Header Section
+            return SlideTransition(
+              position: _headerSlideAnimation,
+              child: FadeTransition(
+                opacity: _headerFadeAnimation,
+                child: Container(
+                  margin: const EdgeInsets.all(16),
+                  child: _buildHeaderSection(),
+                ),
               ),
-            ),
-          );
+            );
+          } else if (index == 1) {
+            // Animated Divider Section
+            return SlideTransition(
+              position: _headerSlideAnimation,
+              child: FadeTransition(
+                opacity: _headerFadeAnimation,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 2,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            AppColors.primaryColor.withOpacity(0.5),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            // Animated Fund Cards
+            final cardIndex = index - 2;
+            return _buildAnimatedCard(
+              fadeAnimation: _cardFadeAnimations[cardIndex],
+              slideAnimation: _cardSlideAnimations[cardIndex],
+              child: Container(
+                margin: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: 20,
+                ),
+                child: _buildFundCard(cardIndex),
+              ),
+            );
+          }
         },
       ),
     );
@@ -371,7 +451,7 @@ class _AmcPackagesScreenState extends State<AmcPackagesScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        "Excellent Rating",
+                        "Risk Level",
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.green[700],
@@ -404,7 +484,32 @@ class _AmcPackagesScreenState extends State<AmcPackagesScreen>
                 const SizedBox(width: 12),
                 Expanded(
                   child: _build3DButton(
-                    onPressed: () {},
+                    onPressed: () {
+                       showCustomDialog(
+                          context: context,
+                          title: '',
+                          content:
+                              'Have you invested previously with ABL Asset Management Company Limited',
+                          titleColor: Colors.black,
+                          primaryButtonText: 'Yes',
+                          secondaryButtonText: 'Not',
+                          primaryButtonColor: Colors.green,
+                          secondaryButtonColor: Colors.grey.shade300,
+                          secondaryTextColor: Colors.black87,
+                          onPrimaryPressed: () {},
+                          onSecondaryPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) =>
+                                        SahulatAnadSarmayakariPackagesScreen(),
+                              ),
+                            );
+                          },
+                        );
+                    },
                     text: "Invest Now",
                     backgroundColor: Colors.green[600]!,
                     shadowColor: Colors.green[300]!,
@@ -504,7 +609,7 @@ class _AmcPackagesScreenState extends State<AmcPackagesScreen>
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            end: Alignment.topCenter,
             colors: [
               backgroundColor,
               backgroundColor.withOpacity(0.8),
