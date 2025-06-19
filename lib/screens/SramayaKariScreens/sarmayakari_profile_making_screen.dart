@@ -24,11 +24,10 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _cnicController = TextEditingController();
   final TextEditingController _motherMaidenNameController = TextEditingController();
-  final TextEditingController _emergencyperonnameController =TextEditingController();
-    final TextEditingController _emergencyperonContactNumberController =TextEditingController();
-      final TextEditingController __emergencyPersoncnicController = TextEditingController();
-
-
+  final TextEditingController _emergencyPersonNameController = TextEditingController();
+  final TextEditingController _emergencyPersonContactNumberController = TextEditingController();
+  final TextEditingController _emergencyPersonCnicController = TextEditingController();
+  final TextEditingController _investmentAmountController = TextEditingController(); // Added controller for investment amount
   final TextEditingController _noDependentsController = TextEditingController();
   final TextEditingController _landlineController = TextEditingController();
   final TextEditingController _mailingAddressController = TextEditingController();
@@ -47,6 +46,10 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
     _fullNameController.dispose();
     _cnicController.dispose();
     _motherMaidenNameController.dispose();
+    _emergencyPersonNameController.dispose();
+    _emergencyPersonContactNumberController.dispose();
+    _emergencyPersonCnicController.dispose();
+    _investmentAmountController.dispose();
     _noDependentsController.dispose();
     _landlineController.dispose();
     _mailingAddressController.dispose();
@@ -54,12 +57,60 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
     super.dispose();
   }
 
+  bool _validateCurrentPage() {
+    switch (_currentPage) {
+      case 0:
+        return _validatePersonalInfoPage();
+      case 1:
+        return _validateContactInfoPage();
+      case 2:
+        return _validateAdditionalInfoPage();
+      default:
+        return false;
+    }
+  }
+
+  bool _validatePersonalInfoPage() {
+    return _selectedTitle != null &&
+           _fullNameController.text.isNotEmpty &&
+           _fullNameController.text.length >= 3 &&
+           _investmentAmountController.text.isNotEmpty &&
+           _cnicController.text.isNotEmpty &&
+           _cnicController.text.replaceAll('-', '').length == 13 &&
+           _cnicIssueDate != null &&
+           _emergencyPersonNameController.text.isNotEmpty &&
+           _emergencyPersonContactNumberController.text.isNotEmpty &&
+           _emergencyPersonCnicController.text.isNotEmpty &&
+           _emergencyPersonCnicController.text.replaceAll('-', '').length == 13;
+  }
+
+  bool _validateContactInfoPage() {
+    return _noDependentsController.text.isNotEmpty &&
+           _selectedMaritalStatus != null &&
+           _mailingAddressController.text.isNotEmpty &&
+           _mailingAddressController.text.length >= 10;
+  }
+
+  bool _validateAdditionalInfoPage() {
+    return _selectedOccupation != null &&
+           _selectedEducation != null;
+  }
+
   void _nextPage() {
     if (_currentPage < 2) {
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
+      if (_validateCurrentPage()) {
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please fill all required fields before proceeding'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } else {
       _submitForm();
     }
@@ -75,12 +126,19 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate() && _validateCurrentPage()) {
       // Handle form submission
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(' Sarmayakri Account created successfully!'),
+          content: Text('Sarmayakari Account created successfully!'),
           backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all required fields'),
+          backgroundColor: Colors.red,
         ),
       );
     }
@@ -276,6 +334,27 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
               const SizedBox(height: 20),
               
               CustomTextFormField(
+                labelText: 'Investment Amount',
+                hintText: 'Enter Investment Amount',
+                controller: _investmentAmountController,
+                isRequired: true,
+                keyboardType: TextInputType.number,
+                prefixIcon: const Icon(Icons.attach_money),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter investment amount';
+                  }
+                  if (int.tryParse(value) == null || int.parse(value) <= 0) {
+                    return 'Please enter a valid investment amount';
+                  }
+                  return null;
+                },
+              ),
+              
+              const SizedBox(height: 20),
+              
+              CustomTextFormField(
                 labelText: 'CNIC',
                 hintText: '12345-1234567-1',
                 controller: _cnicController,
@@ -317,64 +396,66 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
               const SizedBox(height: 20),
               
               CustomTextFormField(
-                labelText: 'Mother\'s Maiden Name',
+                labelText: 'Mother\'s Maiden Name (Optional)',
                 hintText: 'Enter mother\'s maiden name',
                 controller: _motherMaidenNameController,
-                isRequired: true,
+                isRequired: false, // Made optional
                 textCapitalization: TextCapitalization.words,
                 prefixIcon: const Icon(Icons.woman),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter mother\'s maiden name';
-                  }
-                  return null;
-                },
+                validator: null, // Removed validation since it's optional
               ),
-                const SizedBox(height: 20),
+              
+              const SizedBox(height: 20),
               
               CustomTextFormField(
                 labelText: 'Emergency Person Name',
                 hintText: 'Emergency Person Name',
-                controller: _emergencyperonnameController,
+                controller: _emergencyPersonNameController,
                 isRequired: true,
                 textCapitalization: TextCapitalization.words,
-                prefixIcon: const Icon(Icons.woman),
+                prefixIcon: const Icon(Icons.person_pin),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter mother\'s maiden name';
+                    return 'Please enter emergency person name';
                   }
                   return null;
                 },
               ),
-              SizedBox(height: 20,),
-               CustomTextFormField(
-                labelText: 'Emergenvy Peron Cotact Number',
-                hintText: 'Enter Emergenvy Peron Cotact Number',
-                controller: _emergencyperonContactNumberController,
+              
+              const SizedBox(height: 20),
+              
+              CustomTextFormField(
+                labelText: 'Emergency Person Contact Number',
+                hintText: 'Enter Emergency Person Contact Number',
+                controller: _emergencyPersonContactNumberController,
                 isRequired: true,
-                keyboardType: TextInputType.number,
-                prefixIcon: const Icon(Icons.family_restroom),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.phone,
+                prefixIcon: const Icon(Icons.phone),
+                inputFormatters: [PhoneFormatter()],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter number of dependents';
+                    return 'Please enter emergency person contact number';
+                  }
+                  if (value.replaceAll('-', '').length < 10) {
+                    return 'Please enter a valid phone number';
                   }
                   return null;
                 },
               ),
+              
               const SizedBox(height: 20),
               
               CustomTextFormField(
                 labelText: 'Emergency Person CNIC',
                 hintText: '12345-1234567-1',
-                controller: __emergencyPersoncnicController,
+                controller: _emergencyPersonCnicController,
                 isRequired: true,
                 keyboardType: TextInputType.number,
                 prefixIcon: const Icon(Icons.credit_card),
                 inputFormatters: [CNICFormatter()],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter Emerrgency  CNIC';
+                    return 'Please enter emergency person CNIC';
                   }
                   if (value.replaceAll('-', '').length != 13) {
                     return 'CNIC must be 13 digits';
@@ -382,7 +463,6 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                   return null;
                 },
               ),
-              
             ],
           ),
         ],
@@ -418,9 +498,10 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
               const SizedBox(height: 20),
               
               CustomTextFormField(
-                labelText: 'Landline Number',
+                labelText: 'Landline Number (Optional)',
                 hintText: '0321-1234567',
                 controller: _landlineController,
+                isRequired: false, // Made optional
                 keyboardType: TextInputType.phone,
                 prefixIcon: const Icon(Icons.phone),
                 inputFormatters: [PhoneFormatter()],
@@ -572,23 +653,19 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
                     const SizedBox(width: 8),
                     CustomText(
                       'Review Your Information',
-                      
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue.shade800,
-                      ),
-                    
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blue.shade800,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
                 CustomText(
                   'Please review all the information you\'ve entered before submitting. Make sure all details are correct as this will be used for your profile verification.',
-                  
-                    color: Colors.blue.shade700,
-                    fontSize: 14,
-                    height: 1.4,
-                  ),
-                
+                  color: Colors.blue.shade700,
+                  fontSize: 14,
+                  height: 1.4,
+                ),
               ],
             ),
           ),
@@ -650,8 +727,3 @@ class _SarmayakariProfileMakingScreenState extends State<SarmayakariProfileMakin
     );
   }
 }
-
-
-
-
-

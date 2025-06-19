@@ -249,6 +249,8 @@ class _SahulatSarmayakariAccScreenState extends State<SahulatSarmayakariAccScree
                 validator: (value) => value?.isEmpty ?? true ? 'Please enter full name' : null,
               ),
             ),
+            SizedBox(height: 20,),
+            
           ],
         ),
         const SizedBox(height: 16),
